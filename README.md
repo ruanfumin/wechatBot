@@ -2,7 +2,7 @@
 
 > 功能：定时自动获取水位信息并发送到指定微信群中
 
-数据来源：[芜湖水文水资源局 水情简报](http://www.whswj.net/ahwater/swjmh/tpl/dayWaterBriefing.html)
+数据来源：[长江水文 水情信息](http://wx.cjh.com.cn/cjsw/swwx/view/sssq-zd-hd.html?stcd=62904500&t=1594883640)
 
 安装依赖库：
 ```shell
