@@ -68,3 +68,16 @@ class WaterInfo(object):
         s = s + self._sjoin(yongding, data.rz)
         s = s + self._sjoin(heishazhou, data.rz)
         return s
+
+    def getWuwei(self):
+        wuwei = WaterLevel(name='无为大堤', sf=11.5, jj=13.2, bz=15.84)
+        data = self.getTodayHourData()[0]
+        s = """时间:{tm}
+站名:凤凰颈闸下
+现在水位:{rz}m""".format(tm=data.tm, rz=data.rz)
+        s = s + self._sjoin(wuwei, data.rz)
+        return s 
+
+if __name__ == '__main__':
+    w = WaterInfo()
+    print(w.getInfoStr())
