@@ -52,7 +52,7 @@ class WaterInfo(object):
             s = s + station.name + '超保证水位' + ': ' + str(a) + 'm'
         elif waterlevel > station.jj:
             a = ("%.2f" % (waterlevel-station.jj))
-            s = s + station.name + '超警戒水位' + ': ' + a + 'm'
+            s = s + station.name + '超警戒水位' + ': ' + str(a) + 'm'
         elif waterlevel > station.sf:
             a = ("%.2f" % (waterlevel-station.sf))
             s = s + station.name + '超设防水位' + ': ' + str(a) + 'm'
