@@ -2,12 +2,10 @@ from collections import namedtuple
 import time
 import json
 import requests
-from pyecharts import options
-from pyecharts.charts import Line
-from numpy import mean
 
 
 Water = namedtuple('WaterLevel', ['tm', 'rz'])
+WaterLevel = namedtuple('WaterLevel', ['name', 'sf', 'jj', 'bz'])
 
 
 class WaterInfo(object):
@@ -47,40 +45,26 @@ class WaterInfo(object):
             hourList.append(s)
         return hourList
     
-    def render(self):
-        title = '凤凰颈闸下水位: ' + time.strftime("%Y年%m月%d日", time.localtime())
-        data = self.getTodayHourData()
-        x_data = []
-        y_data = []
-        for i in data:
-            x_data.append(i.tm[11:-3]), y_data.append(i.rz)
-        x_data.reverse()
-        avg_water = mean(y_data)
-        max_water = max(y_data)
-        min_water = min(y_data)
-        line = (Line()
-            .add_xaxis(x_data)
-            .add_yaxis('水位', y_data, linestyle_opts=options.LineStyleOpts(type_='solid'))
-            .set_series_opts(
-                markline_opts=options.MarkLineOpts(
-                    data=[
-                        options.MarkLineItem(y=avg_water, name='平均水位', type_='average'),
-                        options.MarkLineItem(y=max_water, name='最高水位', type_='max'),
-                        options.MarkLineItem(y=min_water, name='最低水位', type_='min'),
-                        ]
-                )
-            )
-            .set_global_opts(
-                title_opts=options.TitleOpts(
-                    title=title,
-                    title_textstyle_opts=options.TextStyleOpts(color='red')
-                    ),
-                yaxis_opts=options.AxisOpts(name="水位/m", is_scale=14, max_=max_water),
-                xaxis_opts=options.AxisOpts(name="时间")
-                )
-            )
-        line.render("图例.html")
+    def _sjoin(self, station: WaterLevel, waterlevel: float) -> str:
+        s = '\n'
+        if waterlevel > station.bz:
+            a = ("%.2f" % (waterlevel-station.bz))
+            s = s + station.name + '超保证水位' + ': ' + str(a) + 'm'
+        elif waterlevel > station.jj:
+            a = ("%.2f" % (waterlevel-station.jj))
+            s = s + station.name + '超警戒水位' + ': ' + a + 'm'
+        elif waterlevel > station.sf:
+            a = ("%.2f" % (waterlevel-station.sf))
+            s = s + station.name + '超设防水位' + ': ' + str(a) + 'm'
+        return s
 
-if __name__ == '__main__':
-    w = WaterInfo()
-    w.render()
+    def getInfoStr(self):
+        yongding = WaterLevel(name='永定大圩', sf=11.5, jj=13.2, bz=14.5)
+        heishazhou = WaterLevel(name='黑沙洲、天然洲', sf=11.0, jj=13.0, bz=13.5)
+        data = self.getTodayHourData()[0]
+        s = """时间:{tm}
+站名:凤凰颈闸下
+现在水位:{rz}m""".format(tm=data.tm, rz=data.rz)
+        s = s + self._sjoin(yongding, data.rz)
+        s = s + self._sjoin(heishazhou, data.rz)
+        return s
