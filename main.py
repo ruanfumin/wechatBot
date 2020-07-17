@@ -34,30 +34,14 @@ class WechatBot(object):
 
 if __name__ == '__main__':
     wechatbot = WechatBot()
-    schedule.every().day.at("00:05").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("01:05").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("02:05").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("03:05").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("04:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("05:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("06:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("07:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("08:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("09:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("10:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("11:06").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("12:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("13:08").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("14:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("15:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("16:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("17:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("18:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("19:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("20:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("21:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("22:10").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("23:10").do(wechatbot.sendWaterLevelMessage)
+    for i in range(0,24):
+        s = ''
+        if i < 10:
+            s = '0' + str(i) + ':00'
+        else:
+            s = str(i) + ':00'
+        schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
+    
     # 每10分钟发消息防止掉线
     schedule.every(30).minutes.do(wechatbot.keepWechatOnline)
     while True:

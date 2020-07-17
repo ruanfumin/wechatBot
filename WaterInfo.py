@@ -47,7 +47,6 @@ class WaterInfo(object):
                     r.append(w)
         return r
     
-    
     def _sjoin(self, station: WaterLevel, waterlevel: float) -> str:
         s = '\n'
         if waterlevel > station.bz:
@@ -75,9 +74,7 @@ class WaterInfo(object):
                 break
             time.sleep(60)
         data = self.getTodayHourData()[0]
-        s = """时间:{tm}
-站名:凤凰颈闸下
-现在水位:{rz}m""".format(tm=data.tm, rz=data.rz)
+        s = "时间:{tm}\n站名:凤凰颈闸下\n现在水位:{rz}m".format(tm=data.tm, rz=data.rz)
         s = s + self._sjoin(yongding, data.rz)
         s = s + self._sjoin(heishazhou, data.rz)
         return s
@@ -89,9 +86,7 @@ class WaterInfo(object):
                 break
             time.sleep(60)
         data = self.getTodayHourData()[0]
-        s = """时间:{tm}
-站名:凤凰颈闸下
-现在水位:{rz}m""".format(tm=data.tm, rz=data.rz)
+        s = "时间:{tm}\n站名:凤凰颈闸下\n现在水位:{rz}m".format(tm=data.tm, rz=data.rz)
         s = s + self._sjoin(wuwei, data.rz)
         return s 
 
