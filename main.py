@@ -35,9 +35,9 @@ if __name__ == '__main__':
     for i in range(0,24):
         s = ''
         if i < 10:
-            s = '0' + str(i) + ':00'
+            s = '0' + str(i) + ':05'
         else:
-            s = str(i) + ':00'
+            s = str(i) + ':05'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
     # schedule.every().second.do(wechatbot.sendTestMessage)
     
