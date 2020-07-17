@@ -40,7 +40,7 @@ if __name__ == '__main__':
     schedule.every().day.at("03:17").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("04:17").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("05:17").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("06:12").do(wechatbot.sendWaterLevelMessage)
+    schedule.every().day.at("06:18").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("07:17").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("08:17").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("09:15").do(wechatbot.sendWaterLevelMessage)
@@ -54,10 +54,10 @@ if __name__ == '__main__':
     schedule.every().day.at("17:19").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("18:19").do(wechatbot.sendWaterLevelMessage)
     schedule.every().day.at("19:16").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("20:15").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("21:15").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("22:15").do(wechatbot.sendWaterLevelMessage)
-    schedule.every().day.at("23:14").do(wechatbot.sendWaterLevelMessage)
+    schedule.every().day.at("20:18").do(wechatbot.sendWaterLevelMessage)
+    schedule.every().day.at("21:18").do(wechatbot.sendWaterLevelMessage)
+    schedule.every().day.at("22:18").do(wechatbot.sendWaterLevelMessage)
+    schedule.every().day.at("23:18").do(wechatbot.sendWaterLevelMessage)
     # 每10分钟发消息防止掉线
     schedule.every(30).minutes.do(wechatbot.keepWechatOnline)
     while True:
