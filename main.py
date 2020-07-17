@@ -21,7 +21,7 @@ class WechatBot(object):
     def sendTestMessage(self) -> None:
         """向微信小号(python)发送测试信息"""
         xiaohao = self.bot.friends().search('Python')[0]
-        xiaohao.send('你好，这是测试信息')
+        xiaohao.send('<a href="https://jingyan.baidu.com/article/47a29f2439c718c0142399aa.html"> 点击蓝色字体，打开百度搜索 </a>')
 
     def keepWechatOnline(self) -> None:
         """防止微信掉线"""
@@ -39,6 +39,7 @@ if __name__ == '__main__':
         else:
             s = str(i) + ':00'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
+    # schedule.every().second.do(wechatbot.sendTestMessage)
     
     # 每10分钟发消息防止掉线
     schedule.every(30).minutes.do(wechatbot.keepWechatOnline)

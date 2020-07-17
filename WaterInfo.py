@@ -34,6 +34,7 @@ class WaterInfo(object):
 
     def getTodayHourData(self) -> list:
         """获取今日整点水位"""
+        self._response()
         data_obj = json.loads(self.r.text)
         dataList = data_obj['responses'][0]['data']['dataList']
         r = []
@@ -76,7 +77,6 @@ class WaterInfo(object):
         s = "时间:{tm}\n站名:凤凰颈闸下\n现在水位:{rz}m".format(tm=data.tm, rz=data.rz)
         s = s + self._sjoin(yongding, data.rz)
         s = s + self._sjoin(heishazhou, data.rz)
-        s = s + '\n数据来源：<a href="http://wx.cjh.com.cn/cjsw/swwx/view/sssq-zd-hd.html?stcd=62904500&t=1594883640">长江水文网 水情信息</a>'
         return s
 
     def getWuwei(self) -> str:
@@ -85,10 +85,8 @@ class WaterInfo(object):
         data = self.getTodayHourData()[0]
         s = "时间:{tm}\n站名:凤凰颈闸下\n现在水位:{rz}m".format(tm=data.tm, rz=data.rz)
         s = s + self._sjoin(wuwei, data.rz)
-        s = s + '\n数据来源：<a href="http://wx.cjh.com.cn/cjsw/swwx/view/sssq-zd-hd.html?stcd=62904500&t=1594883640">长江水文网 水情信息</a>'
         return s 
 
 if __name__ == '__main__':
     w = WaterInfo()
-    w._isNow()
-    print(w.getYongdingAndHeishazhou())
+    print(w.getTodayHourData())
