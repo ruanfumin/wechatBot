@@ -9,21 +9,19 @@ class WechatBot(object):
     def __init__(self) -> None:
         self.bot = Bot(cache_path=True)
 
-
     def sendWaterLevelMessage(self) -> None:
-        """向保安站工作群发水位信息"""
+        """向工作群发水位信息"""
         w = WaterInfo()
-        w_info = w.getInfoStr()
+        w._isNow()
         baimaozhen = self.bot.groups().search('区联系白茆防汛抗旱工作群')[0]
         yezhuqun = self.bot.groups().search('保安站建设工作业主群')[0]
-        baimaozhen.send(w_info)
+        baimaozhen.send(w.getYongdingAndHeishazhou())
         yezhuqun.send(w.getWuwei())
 
     def sendTestMessage(self) -> None:
         """向微信小号(python)发送测试信息"""
         xiaohao = self.bot.friends().search('Python')[0]
         xiaohao.send('你好，这是测试信息')
-
 
     def keepWechatOnline(self) -> None:
         """防止微信掉线"""
