@@ -36,7 +36,7 @@ if __name__ == '__main__':
         s = ''
         if i < 10:
             s = '0' 
-        s = s + str(i) + ':16'
+        s = s + str(i) + ':10'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
     
     # 每10分钟发消息防止掉线
