@@ -7,6 +7,7 @@ from WaterInfo import WaterInfo
 
 class WechatBot(object):
     def __init__(self) -> None:
+        print('程序开始运行')
         self.bot = Bot(cache_path=True)
         self.water = WaterInfo()
         self.baimaozheng = self.bot.groups().search('区联系白茆防汛抗旱工作群')[0] # 白茆镇联系群
@@ -14,6 +15,8 @@ class WechatBot(object):
 
     def sendWaterLevelMessage(self) -> None:
         """发水位信息"""
+        s = '{0} 准备向工作群发水位数据'.format(time.strftime("%H:%M:%S", time.localtime()))
+        print(s)
         w = self.water.getTodayNowHourData()
         self.baimaozheng.send(self.water.getYongdingAndHeishazhou(w))
         self.yezhuqun.send(self.water.getWuwei(w))
@@ -33,7 +36,7 @@ if __name__ == '__main__':
         s = ''
         if i < 10:
             s = '0' 
-        s = s + str(i) + ':05'
+        s = s + str(i) + ':01'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
     
     # 每10分钟发消息防止掉线
