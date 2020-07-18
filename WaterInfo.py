@@ -68,6 +68,7 @@ class WaterInfo(object):
             if data.tm == time.strftime("%Y-%m-%d %H:00:00", time.localtime()):
                 break
             time.sleep(60)
+            self._response()
 
     def getYongdingAndHeishazhou(self) -> str:
         """获取永定和黑沙洲水位信息"""
