@@ -29,6 +29,7 @@ class WaterInfo(object):
         for data in dataList:
             w = Water(tm=data['tm'], rz=float(data['rz']))
             result.append(w)
+            return result
         return result
 
     def getTodayData(self) -> list:
@@ -62,6 +63,9 @@ class WaterInfo(object):
     def getTodayNowHourData(self, minute: int = 1) -> Water:
         """获取现在的整点水位数据，若无就进入循环等待，获取到跳出循环"""
         while True:
+            if self.getTodayHourData() == []: # 刚过0点，整点数据为0的情况
+                time.sleep(60 * minute)
+                continue
             hourData = self.getTodayHourData()[0]
             if hourData.tm == time.strftime("%Y-%m-%d %H:00:00", time.localtime()):
                 s = '{0} 成功获取当前整点水位数据'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
@@ -102,5 +106,5 @@ class WaterInfo(object):
 
 if __name__ == '__main__':
     w = WaterInfo()
-    i = w.getWuwei(w.getTodayNowHourData())
-    print(i)
+    # i = w.getWuwei(w.getTodayNowHourData())
+    print(w.getTodayHourData())

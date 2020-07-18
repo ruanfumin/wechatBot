@@ -27,7 +27,7 @@ class WechatBot(object):
         """防止微信掉线"""
         gongzhonghao = self.bot.mps().search('菜鸟学Python')[0]
         gongzhonghao.send('人生苦短，我学Python')
-        print( datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "发送消息防止掉线。")
+        print(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "发送消息防止掉线")
 
 
 if __name__ == '__main__':
@@ -36,11 +36,11 @@ if __name__ == '__main__':
         s = ''
         if i < 10:
             s = '0' 
-        s = s + str(i) + ':01'
+        s = s + str(i) + ':16'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
     
     # 每10分钟发消息防止掉线
-    schedule.every(30).minutes.do(wechatbot.keepWechatOnline)
+    schedule.every(10).minutes.do(wechatbot.keepWechatOnline)
     while True:
         schedule.run_pending()
         time.sleep(1)
