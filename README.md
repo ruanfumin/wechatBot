@@ -6,7 +6,7 @@
 
 安装依赖库：
 ```shell
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 

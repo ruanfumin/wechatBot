@@ -67,7 +67,8 @@ class WaterInfo(object):
                 s = '{0} 成功获取当前整点水位数据'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()))
                 print(s)
                 return hourData
-            s = '{0} 没有当前整点数据，等待{1}分钟再次尝试'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), str(minute * 60))
+            s = '{0} 没有当前整点数据，等待{1}秒再次尝试'.format(time.strftime("%Y-%m-%d %H:%M:%S", time.localtime()), str(minute * 60))
+            print(s)
             time.sleep(60 * minute)
     
     def _sjoin(self, station: WaterLevel, waterlevel: float) -> str:
