@@ -8,26 +8,23 @@ from WaterInfo import WaterInfo
 class WechatBot(object):
     def __init__(self) -> None:
         self.bot = Bot(cache_path=True)
+        self.water = WaterInfo()
+        self.baimaozheng = self.bot.groups().search('区联系白茆防汛抗旱工作群')[0] # 白茆镇联系群
+        self.yezhuqun = self.bot.groups().search('保安站建设工作业主群')[0] # 保安站业主群
 
     def sendWaterLevelMessage(self) -> None:
-        """向工作群发水位信息"""
-        w = WaterInfo()
-        w._isNow()
-        baimaozhen = self.bot.groups().search('区联系白茆防汛抗旱工作群')[0]
-        yezhuqun = self.bot.groups().search('保安站建设工作业主群')[0]
-        baimaozhen.send(w.getYongdingAndHeishazhou())
-        yezhuqun.send(w.getWuwei())
-
-    def sendTestMessage(self) -> None:
-        """向微信小号(python)发送测试信息"""
-        xiaohao = self.bot.friends().search('Python')[0]
-        xiaohao.send('<a href="https://jingyan.baidu.com/article/47a29f2439c718c0142399aa.html"> 点击蓝色字体，打开百度搜索 </a>')
+        """发水位信息"""
+        w = self.water.getTodayNowHourData()
+        self.baimaozheng.send(self.water.getYongdingAndHeishazhou(w))
+        self.yezhuqun.send(self.water.getWuwei(w))
+        s = '{0} 已向工作群发送水位数据'.format(time.strftime("%H:%M:%S", time.localtime()))
+        print(s)
 
     def keepWechatOnline(self) -> None:
         """防止微信掉线"""
-        gongqingtuan = self.bot.mps().search('滁州水文')[0]
-        gongqingtuan.send('我爱水文')
-        print("于 " + datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "向滁州水文发送消息防止掉线。")
+        gongzhonghao = self.bot.mps().search('菜鸟学Python')[0]
+        gongzhonghao.send('人生苦短，我学Python')
+        print( datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "发送消息防止掉线。")
 
 
 if __name__ == '__main__':
@@ -36,7 +33,7 @@ if __name__ == '__main__':
         s = ''
         if i < 10:
             s = '0' 
-        s = s + str(i) + ':10'
+        s = s + str(i) + ':05'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
     
     # 每10分钟发消息防止掉线
