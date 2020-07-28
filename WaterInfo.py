@@ -23,7 +23,7 @@ class WaterInfo(object):
     def getAllData(self) -> list:
         """获取所有水位数据"""
         self._response()
-        data_obj = json.loads(self.r.text)
+        data_obj = json.loads(self.r.text, strict=False)
         dataList = data_obj['responses'][0]['data']['dataList']
         result = []
         for data in dataList:

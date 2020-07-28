@@ -32,11 +32,11 @@ class WechatBot(object):
 
 if __name__ == '__main__':
     wechatbot = WechatBot()
-    for i in range(0,24):
+    for i in range(0, 24):
         s = ''
         if i < 10:
             s = '0' 
-        s = s + str(i) + ':10'
+        s = s + str(i) + ':20'
         schedule.every().day.at(s).do(wechatbot.sendWaterLevelMessage)
     
     # 每10分钟发消息防止掉线
