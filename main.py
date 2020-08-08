@@ -18,8 +18,7 @@ class WechatBot(object):
         s = '{0} 准备向工作群发水位数据'.format(time.strftime("%H:%M:%S", time.localtime()))
         print(s)
         w = self.water.getTodayNowHourData()
-        self.baimaozheng.send(self.water.getYongdingAndHeishazhou(w))
-        self.yezhuqun.send(self.water.getWuwei(w))
+        self.baimaozheng.send(self.water.getWuWeiDaDiTextInfo(w))
         s = '{0} 已向工作群发送水位数据'.format(time.strftime("%H:%M:%S", time.localtime()))
         print(s)
 
